@@ -1,0 +1,26 @@
+server:
+  port: ${MICROSERVICE_PORT}
+
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+  cloud:
+    vault:
+      host: ${VAULT_HOST}
+      port: ${VAULT_PORT}
+      token: ${VAULT_TOKEN}
+      scheme: ${VAULT_SCHEME}
+      kv:
+        enabled: true
+        backend: microservices
+        default-context: truth-or-dare-tg-bot-states-db/${PROFILE}
+  profiles:
+    active: configuration,credentials,db
+  config:
+    import: vault://
